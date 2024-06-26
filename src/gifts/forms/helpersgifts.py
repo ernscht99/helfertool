@@ -54,6 +54,7 @@ class HelpersGiftsForm(forms.ModelForm):
         if gifts_readonly:
             self.fields["deposit"].disabled = True
             self.fields["deposit_returned"].disabled = True
+            self.fields["got_bracelet"].disabled = True
             self.fields["got_shirt"].disabled = True
             self.fields["buy_shirt"].disabled = True
 

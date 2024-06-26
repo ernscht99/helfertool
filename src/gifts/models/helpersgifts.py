@@ -53,6 +53,11 @@ class HelpersGifts(models.Model):
         through=DeservedGiftSet,
     )
 
+    got_bracelet = models.BooleanField(
+        default=False,
+        verbose_name=_("Helper got her bracelet"),
+    )
+
     @transaction.atomic
     def update(self):
         """
@@ -195,6 +200,10 @@ class HelpersGifts(models.Model):
 
         if other_gifts.buy_shirt:
             self.buy_shirt = True
+
+        # braclet flag
+        if other_gifts.buy_shirt:
+            self.got_bracelet = True
 
         # deserved gifts
         for gift in DeservedGiftSet.objects.filter(helper=other_gifts):
