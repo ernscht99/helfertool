@@ -55,7 +55,7 @@ def escape(payload):
     return payload
 
 
-def xlsx(buffer, event, jobs, date, include_sensitive):
+def xlsx(buffer, event, jobs, date, include_sensitive, included_columns):
     """Exports the helpers for given jobs of an event as excel spreadsheet.
 
     Parameter:
@@ -64,6 +64,7 @@ def xlsx(buffer, event, jobs, date, include_sensitive):
         jobs:   a list of all exported jobs
         date:   export only for this date
         include_sensitive: Include sensitive data in export
+        included_columns: columns to include in the export {column_name: bool_include}
     """
     # create xlsx
     workbook = xlsxwriter.Workbook(buffer)
@@ -92,30 +93,40 @@ def xlsx(buffer, event, jobs, date, include_sensitive):
         row = Iterator()
         column = Iterator()
 
-        # header
-        worksheet.write(0, column.next(), _("First name"), bold)
-        worksheet.write(0, column.next(), _("Surname"), bold)
-        worksheet.write(0, column.next(), _("E-Mail"), bold)
-        worksheet.set_column(0, column.get(), 30)
+        # determine which of the requested columns are included
+        included_columns["phone"] = event.ask_phone and included_columns["phone"] and include_sensitive
+        included_columns["shirt"] = event.ask_shirt and included_columns["shirt"]
+        included_columns["nutrition"] = event.ask_nutrition and included_columns["nutrition"]
+        included_columns["foodhandling"] = job.infection_instruction and included_columns["foodhandling"]
 
-        if event.ask_phone and include_sensitive:
+        # header
+        if included_columns["name"]:
+            worksheet.write(0, column.next(), _("First name"), bold)
+            worksheet.write(0, column.next(), _("Surname"), bold)
+            worksheet.set_column(0, column.get(), 30)
+        if included_columns["email"]:
+            worksheet.write(0, column.next(), _("E-Mail"), bold)
+            worksheet.set_column(0, column.get(), 30)
+
+        if included_columns["phone"]:
             worksheet.write(0, column.next(), _("Mobile phone"), bold)
             worksheet.set_column(column.get(), column.get(), 20)
 
-        if event.ask_shirt:
+        if included_columns["shirt"]:
             worksheet.write(0, column.next(), _("T-shirt"), bold)
             worksheet.set_column(column.get(), column.get(), 10)
 
-        if event.ask_nutrition:
+        if included_columns["nutrition"]:
             worksheet.write(0, column.next(), _("Nutrition"), bold)
             worksheet.set_column(column.get(), column.get(), 13)
 
-        if job.infection_instruction:
+        if included_columns["foodhandling"]:
             worksheet.write(0, column.next(), _("Food handling"), bold)
             worksheet.set_column(column.get(), column.get(), 20)
 
-        worksheet.write(0, column.next(), _("Comment"), bold)
-        worksheet.set_column(column.get(), column.get(), 50)
+        if included_columns["comment"]:
+            worksheet.write(0, column.next(), _("Comment"), bold)
+            worksheet.set_column(column.get(), column.get(), 50)
 
         # last column, needed for merge later
         last_column = column.get()
@@ -137,13 +148,13 @@ def xlsx(buffer, event, jobs, date, include_sensitive):
                 continue
 
             worksheet.merge_range(row.next(), 0, row.get(), last_column, shift.time(), bold)
-            add_helpers(worksheet, row, column, event, job, shift.helper_set.all(), multiple_shifts, include_sensitive)
+            add_helpers(worksheet, row, column, event, job, shift.helper_set.all(), multiple_shifts, included_columns)
 
     # close xlsx
     workbook.close()
 
 
-def add_helpers(worksheet, row, column, event, job, helpers, multiple_shifts_format, include_sensitive):
+def add_helpers(worksheet, row, column, event, job, helpers, multiple_shifts_format, included_columns):
     for helper in helpers:
         row.next()
         column.reset()
@@ -154,17 +165,20 @@ def add_helpers(worksheet, row, column, event, job, helpers, multiple_shifts_for
         if num_shifts + num_jobs > 1:
             cell_format = multiple_shifts_format
 
-        worksheet.write(row.get(), column.next(), escape(helper.firstname), cell_format)
-        worksheet.write(row.get(), column.next(), escape(helper.surname), cell_format)
-        worksheet.write(row.get(), column.next(), escape(helper.email), cell_format)
-        if event.ask_phone and include_sensitive:
+        if included_columns["name"]:
+            worksheet.write(row.get(), column.next(), escape(helper.firstname), cell_format)
+            worksheet.write(row.get(), column.next(), escape(helper.surname), cell_format)
+        if included_columns["email"]:
+            worksheet.write(row.get(), column.next(), escape(helper.email), cell_format)
+        if included_columns["phone"]:
             worksheet.write(row.get(), column.next(), escape(helper.phone), cell_format)
-        if event.ask_shirt:
+        if included_columns["shirt"]:
             worksheet.write(row.get(), column.next(), escape(str(helper.get_shirt_display())), cell_format)
-        if event.ask_nutrition:
+        if included_columns["nutrition"]:
             worksheet.write(row.get(), column.next(), escape(str(helper.get_nutrition_short())), cell_format)
-        if job.infection_instruction:
+        if included_columns["foodhandling"]:
             worksheet.write(
                 row.get(), column.next(), escape(str(helper.get_infection_instruction_short())), cell_format
             )
-        worksheet.write(row.get(), column.next(), escape(helper.comment), cell_format)
+        if included_columns["comment"]:
+            worksheet.write(row.get(), column.next(), escape(helper.comment), cell_format)

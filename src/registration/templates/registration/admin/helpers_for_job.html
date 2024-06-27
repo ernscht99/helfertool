@@ -2,6 +2,7 @@
 {% load i18n django_bootstrap5 icons static permissions %}
 
 {% block content %}
+    <script src="{% static "registration/js/get_export.js" %}"></script>
     <h1>
         {% blocktrans trimmed with jobname=job.name%}
             Helpers for {{ jobname }}
@@ -34,10 +35,10 @@
                                 {% trans "All days" %}
 
                                 <div class="float-end">
-                                    <a href="{% url 'export_job' event.url_name 'excel' job.pk %}" class="icon mr-2">
+                                    <a href="#" onclick="get_export('{% url 'export_job' event.url_name 'excel' job.pk %}')" class="icon mr-2">
                                         <img src="{% static "helfertool/img/icons/xls.svg" %}" class="icon" alt="Excel" />
                                     </a>
-                                    <a href="{% url 'export_job' event.url_name 'pdf' job.pk %}" class="icon">
+                                    <a href="#" onclick="get_export('{% url 'export_job' event.url_name 'pdf' job.pk %}')" class="icon mr-2">
                                         <img src="{% static "helfertool/img/icons/pdf.svg" %}" class="icon" alt="PDF" />
                                     </a>
                                 </div>
@@ -48,16 +49,34 @@
                                     {{ day }}
 
                                     <div class="float-end">
-                                        <a href="{% url 'export_job_date' event.url_name 'excel' job.pk day %}" class="icon mr-2">
+                                        <a href="#" onclick="get_export('{% url 'export_job_date' event.url_name 'excel' job.pk day %}')" class="icon mr-2">
                                             <img src="{% static "helfertool/img/icons/xls.svg" %}" class="icon" alt="Excel" />
                                         </a>
-                                        <a href="{% url 'export_job_date' event.url_name 'pdf' job.pk day %}" class="icon">
+                                        <a href="#" onclick="get_export('{% url 'export_job_date' event.url_name 'pdf' job.pk day %}')">
                                             <img src="{% static "helfertool/img/icons/pdf.svg" %}" class="icon" alt="PDF" />
                                         </a>
                                     </div>
                                 </li>
                             {% endfor %}
                         </ul>
+                            <ul>
+                      <div class="modal-body">
+                        Select what data to export: <br>
+                        <label><input type="checkbox" id="checkbox_name" checked>Name</label>
+                        <br>
+                        <label><input type="checkbox" id="checkbox_email" checked>E-Mail</label>
+                        <br>
+                        <label><input type="checkbox" id="checkbox_phone" checked>Phone</label>
+                        <br>
+                        <label><input type="checkbox" id="checkbox_shirt" checked>T-Shirt size</label>
+                        <br>
+                        <label><input type="checkbox" id="checkbox_nutrition" checked>Nutrition</label>
+                        <br>
+                        <label><input type="checkbox" id="checkbox_foodhandling" checked>Food Handling Instruction</label>
+                        <br>
+                        <label><input type="checkbox" id="checkbox_comment" checked>Comment</label>
+                      </div>
+                            </ul>
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{% icon "times" %} {% trans "Close" %}</button>

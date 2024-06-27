@@ -54,6 +54,17 @@ def export(request, event_url_name, filetype, job_pk=None, date=None):
         job_for_log = None
         filename = event.name
 
+    # parse requested columns
+    columns = {
+        "name": "true" == request.GET.get("name", "false"),
+        "email": "true" == request.GET.get("email", "false"),
+        "phone": "true" == request.GET.get("phone", "false"),
+        "shirt": "true" == request.GET.get("shirt", "false"),
+        "nutrition": "true" == request.GET.get("nutrition", "false"),
+        "foodhandling": "true" == request.GET.get("foodhandling", "false"),
+        "comment": "true" == request.GET.get("comment", "false"),
+    }
+
     # parse date
     if date:
         # check if there are any shifts with this start date
@@ -76,11 +87,11 @@ def export(request, event_url_name, filetype, job_pk=None, date=None):
     if filetype == "excel":
         filename = "%s.xlsx" % filename
         content_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        xlsx(buffer, event, jobs, date, include_sensitive)
+        xlsx(buffer, event, jobs, date, include_sensitive, columns)
     elif filetype == "pdf":
         filename = "%s.pdf" % filename
         content_type = "application/pdf"
-        pdf(buffer, event, jobs, date)
+        pdf(buffer, event, jobs, date, columns)
 
     # log
     logger.info(
