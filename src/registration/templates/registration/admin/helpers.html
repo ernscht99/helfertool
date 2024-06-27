@@ -85,7 +85,7 @@
                 {% endblocktrans %}
             </p>
 
-            <a href="#col-{{job.id}}" class="btn text-nowrap" data-bs-toggle="collapse">{% icon "caret-right" %} Show/Hide Shfits</a>
+            <a href="#col-{{job.id}}" class="btn text-nowrap" data-bs-toggle="collapse">{% icon "caret-right" %} {% trans "Show/Hide Helpers"%}</a>
 
             <div id="col-{{job.id}}" class="collapse">
                 {% shifttable job %}

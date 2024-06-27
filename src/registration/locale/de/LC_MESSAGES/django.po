@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: helfertool\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-30 16:49+0200\n"
+"POT-Creation-Date: 2024-06-27 13:39+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -84,7 +84,7 @@ msgid "Name"
 msgstr "Name"
 
 #: registration/export/pdf.py:104
-#: registration/templates/registration/admin/helpers_for_job.html:139
+#: registration/templates/registration/admin/helpers_for_job.html:142
 msgid "Nobody is registered for this shift."
 msgstr "Es ist niemand zu dieser Schicht angemeldet."
 
@@ -701,8 +701,8 @@ msgid "More information about the Helfertool can be found here:"
 msgstr "Mehr Informationen über das Helfertool gibt es hier:"
 
 #: registration/templates/registration/admin/add_helper.html:5
-#: registration/templates/registration/admin/helpers_for_job.html:120
-#: registration/templates/registration/admin/helpers_for_job.html:125
+#: registration/templates/registration/admin/helpers_for_job.html:123
+#: registration/templates/registration/admin/helpers_for_job.html:128
 msgid "Add helper"
 msgstr "Helfer:in hinzufügen"
 
@@ -1242,6 +1242,11 @@ msgstr "Öffentlich"
 msgid "Number of coordinators: %(number)s"
 msgstr "Anzahl der Koordinator:innen: %(number)s"
 
+#: registration/templates/registration/admin/helpers.html:88
+#: registration/templates/registration/admin/helpers_for_job.html:117
+msgid "Show/Hide Helpers"
+msgstr "Zeige Helfer:innen"
+
 #: registration/templates/registration/admin/helpers_for_job.html:6
 #, python-format
 msgid "Helpers for %(jobname)s"
@@ -1261,7 +1266,7 @@ msgstr "Koordinator:in hinzufügen"
 msgid "%(current)s of %(total)s"
 msgstr "%(current)s von %(total)s"
 
-#: registration/templates/registration/admin/helpers_for_job.html:132
+#: registration/templates/registration/admin/helpers_for_job.html:135
 msgid "Set presence for complete shift"
 msgstr "Anwesenheit für komplette Schicht setzen"
 
@@ -1881,12 +1886,12 @@ msgstr "Aufgabe gelöscht: %(name)s"
 msgid "Link deleted"
 msgstr "Link gelöscht"
 
-#: registration/views/registration.py:142
+#: registration/views/registration.py:141
 msgid "Sending the mail failed, but the registration was saved."
 msgstr ""
 "Senden der E-Mail fehlgeschlagen, die Anmeldung wurde dennoch gespeichert."
 
-#: registration/views/registration.py:268
+#: registration/views/registration.py:263
 msgid "Sending the mail failed, but the change was saved."
 msgstr ""
 "Senden der E-Mail fehlgeschlagen, die Änderung wurde dennoch gespeichert."
