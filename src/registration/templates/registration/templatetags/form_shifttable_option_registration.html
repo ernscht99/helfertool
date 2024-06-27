@@ -14,6 +14,10 @@
                 <span class="badge badge-outline-secondary float-end">
                     {{ shift.number }}/{{ shift.number }}
                 </span>
+            {% elif shift.unlimited %}
+                <span class="badge badge-outline-secondary float-end">
+                    {{ shift.num_helpers }}/unlimited
+                </span>
             {% else %}
                 <span class="badge badge-outline-secondary float-end">
                     {{ shift.num_helpers }}/{{ shift.number }}

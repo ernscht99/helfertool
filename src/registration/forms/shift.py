@@ -53,6 +53,8 @@ class ShiftForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super(ShiftForm, self).save(False)  # event is missing
+        if instance.unlimited:
+            instance.number = Shift._unlimited_value
 
         # add event
         instance.job = self.job

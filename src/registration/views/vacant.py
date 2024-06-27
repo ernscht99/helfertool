@@ -40,7 +40,7 @@ def vacant_shifts(request, event_url_name):
             shifts = job.shift_set.filter(begin__date=day)
 
             for shift in shifts:
-                if not shift.is_full():
+                if not shift.is_full() and not shift.unlimited:
                     shift.num_vacant = shift.number - shift.num_helpers()
                     vacant_shifts_on_day.append(shift)
 

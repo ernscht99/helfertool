@@ -205,8 +205,10 @@ def chart_shifts(request, event_url_name):
         return JsonResponse({})
 
     # get data
-    total_shifts = Shift.objects.filter(job__event=event).aggregate(Sum("number"))["number__sum"] or 0
-    filled_shifts = HelperShift.objects.filter(helper__event=event).count()
+    total_shifts = (
+        Shift.objects.filter(job__event=event).filter(unlimited=False).aggregate(Sum("number"))["number__sum"] or 0
+    )
+    filled_shifts = HelperShift.objects.filter(helper__event=event).filter(shift__unlimited=False).count()
     vacant_shifts = total_shifts - filled_shifts
 
     # abort if nothing to show

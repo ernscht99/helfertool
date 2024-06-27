@@ -94,7 +94,11 @@
                     {% endif %}
                     {{ shift.time_hours }}
                     <span class="badge badge-outline-dark float-end">
+                        {% if shift.unlimited %}
+                        {{ shift.num_helpers_archived }}/unlimited
+                        {% else %}
                         {{ shift.num_helpers_archived }}/{{ shift.number }}
+                        {% endif %}
                     </span>
                 </div>
 

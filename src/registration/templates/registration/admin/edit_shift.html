@@ -8,6 +8,7 @@
         <h1>{% trans "New shift" %}</h1>
     {% endif %}
 
+
     <form action="" method="post">
         {% csrf_token %}
 
@@ -34,6 +35,10 @@
             </div>
         </div>
 
+        <div class="row">
+            {% bootstrap_field form.unlimited layout="floating" %}
+        </div>
+
         <div class="text-muted">
             {% blocktrans trimmed %}
                 The following two settings are only relevant for public jobs.
@@ -50,5 +55,29 @@
         {% endif %}
 
         <button type="submit" class="btn btn-outline-primary">{% icon "save" %} {% trans "Save" %}</button>
+    <script>
+      checkbox = $("#id_unlimited")[0]
+      numberfield = $("#id_number")[0]
+      submit = $("[type=submit]:last")[0]
+      function checkbox_changed(){
+        if(checkbox.checked){
+          numberfield.disabled = true;
+        } else {
+          numberfield.disabled = false;
+        }
+      }
+
+      window.onload = function(){
+        checkbox_changed();
+        if(checkbox.checked){
+          numberfield.value = 0
+        }
+      }
+
+      checkbox.addEventListener("change", checkbox_changed)
+      submit.addEventListener("click", function() {
+        numberfield.disabled = false
+      });
+    </script>
     </form>
 {% endblock %}
