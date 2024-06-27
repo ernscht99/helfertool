@@ -85,25 +85,29 @@
                 {% endblocktrans %}
             </p>
 
-            {% shifttable job %}
-                <div class="mb-1">
-                    {% if shift.hidden %}
-                        {% icon "eye-slash" %}
-                    {% elif shift.blocked %}
-                        {% icon "lock" %}
-                    {% endif %}
-                    {{ shift.time_hours }}
-                    <span class="badge badge-outline-dark float-end">
-                        {{ shift.num_helpers_archived }}/{{ shift.number }}
+            <a href="#col-{{job.id}}" class="btn text-nowrap" data-bs-toggle="collapse">{% icon "caret-right" %} Show/Hide Shfits</a>
+
+            <div id="col-{{job.id}}" class="collapse">
+                {% shifttable job %}
+                    <div class="mb-1">
+                        {% if shift.hidden %}
+                            {% icon "eye-slash" %}
+                        {% elif shift.blocked %}
+                            {% icon "lock" %}
+                        {% endif %}
+                        {{ shift.time_hours }}
+                        <span class="badge badge-outline-dark float-end">
+                            {{ shift.num_helpers_archived }}/{{ shift.number }}
+                        </span>
+                    </div>
+
+                    {% shift_progress shift %}
+
+                    <span class="d-inline-block mt-1 text-truncate shifttable-maxwidth" title="{{ shift.name }}">
+                        {{ shift.name|default:"&nbsp;" }}
                     </span>
-                </div>
-
-                {% shift_progress shift %}
-
-                <span class="d-inline-block mt-1 text-truncate shifttable-maxwidth" title="{{ shift.name }}">
-                    {{ shift.name|default:"&nbsp;" }}
-                </span>
-            {% endshifttable %}
+                {% endshifttable %}
+            </div>
         {% endfor %}
     {% endif %}
 {% endblock %}
