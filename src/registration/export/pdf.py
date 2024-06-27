@@ -68,7 +68,7 @@ def table_of_helpers(elements, helpers, event, included_columns):
     if included_columns["nutrition"]:
         available_space = add_column(_("Nutrition"), 2.5, available_space)
     if included_columns["foodhandling"]:
-        available_space = add_column(_("Food Handling Instructions"), 4, available_space)
+        available_space = add_column(_("Food handling"), 4, available_space)
     if included_columns["comment"]:
         available_space = add_column(_("Comment"), available_space, available_space)
 
