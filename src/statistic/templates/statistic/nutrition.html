@@ -45,15 +45,13 @@
                         <tr>
                             <th scope="row" class="w-50">{% trans 'Other' %}</th>
                             {% for date, data in day_data.items %}
-                                <td>
-                                    {{ data.num_other }}
-                                    {% if data.helpers_other %}
-                                        (<a href="" data-bs-toggle="modal"
-                                            data-bs-target="#nutrition-{{ date|date:'Ymd' }}">
-                                            {% trans 'Show' %}
-                                        </a>)
-                                    {% endif %}
-                                </td>
+                                <td>{{ data.num_other }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-50">{% trans 'Sum' %}</th>
+                            {% for date, data in day_data.items %}
+                                <td>{{ data.sum }}</td>
                             {% endfor %}
                         </tr>
                     </tbody>

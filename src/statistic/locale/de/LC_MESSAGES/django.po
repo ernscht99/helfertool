@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-29 12:53+0200\n"
+"POT-Creation-Date: 2024-06-29 13:01+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -64,21 +64,20 @@ msgstr "Vegan"
 msgid "Other"
 msgstr "Anderes"
 
-#: statistic/templates/statistic/nutrition.html:53
-#: statistic/templates/statistic/nutrition_table.html:28
-msgid "Show"
-msgstr "Anzeigen"
+#: statistic/templates/statistic/nutrition.html:52
+msgid "Sum"
+msgstr "Summe"
 
-#: statistic/templates/statistic/nutrition.html:73
+#: statistic/templates/statistic/nutrition.html:65
 msgid "Per job"
 msgstr "Pro Aufgabe"
 
-#: statistic/templates/statistic/nutrition.html:76
+#: statistic/templates/statistic/nutrition.html:68
 #: statistic/templates/statistic/shirts.html:45
 msgid "Info:"
 msgstr "Hinweis:"
 
-#: statistic/templates/statistic/nutrition.html:77
+#: statistic/templates/statistic/nutrition.html:69
 msgid ""
 "Helpers and coordinators are counted for all their jobs. If you sum up the "
 "numbers here, they might be higher than the total numbers."
@@ -95,6 +94,10 @@ msgstr ""
 #: statistic/templates/statistic/nutrition_table.html:8
 msgid "Nutrition for helpers"
 msgstr "Ernährungsweisen der Helfer:innen"
+
+#: statistic/templates/statistic/nutrition_table.html:28
+msgid "Show"
+msgstr "Anzeigen"
 
 #: statistic/templates/statistic/nutrition_table.html:45
 #, python-format

@@ -21,6 +21,8 @@ class NutritionData:
         self.num_vegan = helper_set.filter(nutrition=Helper.NUTRITION_VEGAN).count()
         self.num_other = helper_set.filter(nutrition=Helper.NUTRITION_OTHER).count()
 
+        self.sum = self.num_no_preference + self.num_vegetarian + self.num_vegan + self.num_other
+
         # helpers with "other" (we want to show the comments)
         self.helpers_other = helper_set.filter(nutrition=Helper.NUTRITION_OTHER)
 
