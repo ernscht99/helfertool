@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.cache import never_cache
+from django.db.models.functions import TruncDate
 
 from helfertool.utils import nopermission
 from registration.decorators import archived_not_available
-from registration.models import Event, Helper
+from registration.models import Event, Helper, Shift
 from registration.permissions import has_access, has_access_event_or_job, ACCESS_STATISTICS_VIEW
 
 from collections import OrderedDict
@@ -44,6 +45,19 @@ def nutrition(request, event_url_name):
     if has_access(request.user, event, ACCESS_STATISTICS_VIEW):
         event_data = NutritionData(event.helper_set)
 
+    # for each day
+    day_data = OrderedDict()
+    shifts = Shift.objects.annotate(date=TruncDate("begin")).order_by("date")
+
+    for shift in shifts:
+        date = shift.date
+        if date not in day_data:
+            # Collect unique helpers for this date using HelperShift
+            helpers_set = Helper.objects.filter(helpershift__shift__begin__date=date).distinct()
+
+            # Use NutritionData to summarize nutrition preferences
+            day_data[date] = NutritionData(helper_set=helpers_set)
+
     # for each job
     job_data = OrderedDict()
     for job in event.job_set.all():
@@ -54,5 +68,5 @@ def nutrition(request, event_url_name):
         job_data[job] = NutritionData(job.helpers_and_coordinators())
 
     # render
-    context = {"event": event, "event_data": event_data, "job_data": job_data}
+    context = {"event": event, "event_data": event_data, "job_data": job_data, "day_data": day_data}
     return render(request, "statistic/nutrition.html", context)

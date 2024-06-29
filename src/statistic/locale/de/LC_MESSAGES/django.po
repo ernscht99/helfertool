@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-28 10:33+0200\n"
+"POT-Creation-Date: 2024-06-29 12:53+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -29,16 +29,56 @@ msgstr "Ernährung"
 msgid "Total"
 msgstr "Insgesamt"
 
-#: statistic/templates/statistic/nutrition.html:13
+#: statistic/templates/statistic/nutrition.html:14
+msgid "Per day"
+msgstr "Pro Tag"
+
+#: statistic/templates/statistic/nutrition.html:20
+#, fuzzy
+#| msgid "Nutrition"
+msgid "Nutrition Type"
+msgstr "Ernährung"
+
+#: statistic/templates/statistic/nutrition.html:28
+#: statistic/templates/statistic/nutrition_table.html:10
+#: statistic/views/chart.py:252
+msgid "No preference"
+msgstr "Keine Präferenz"
+
+#. Translators: adjective
+#: statistic/templates/statistic/nutrition.html:34
+#: statistic/templates/statistic/nutrition_table.html:14
+#: statistic/views/chart.py:254
+msgid "Vegetarian"
+msgstr "Vegetarisch"
+
+#: statistic/templates/statistic/nutrition.html:40
+#: statistic/templates/statistic/nutrition_table.html:18
+#: statistic/views/chart.py:255
+msgid "Vegan"
+msgstr "Vegan"
+
+#: statistic/templates/statistic/nutrition.html:46
+#: statistic/templates/statistic/nutrition_table.html:22
+#: statistic/views/chart.py:256
+msgid "Other"
+msgstr "Anderes"
+
+#: statistic/templates/statistic/nutrition.html:53
+#: statistic/templates/statistic/nutrition_table.html:28
+msgid "Show"
+msgstr "Anzeigen"
+
+#: statistic/templates/statistic/nutrition.html:73
 msgid "Per job"
 msgstr "Pro Aufgabe"
 
-#: statistic/templates/statistic/nutrition.html:16
+#: statistic/templates/statistic/nutrition.html:76
 #: statistic/templates/statistic/shirts.html:45
 msgid "Info:"
 msgstr "Hinweis:"
 
-#: statistic/templates/statistic/nutrition.html:17
+#: statistic/templates/statistic/nutrition.html:77
 msgid ""
 "Helpers and coordinators are counted for all their jobs. If you sum up the "
 "numbers here, they might be higher than the total numbers."
@@ -55,31 +95,6 @@ msgstr ""
 #: statistic/templates/statistic/nutrition_table.html:8
 msgid "Nutrition for helpers"
 msgstr "Ernährungsweisen der Helfer:innen"
-
-#: statistic/templates/statistic/nutrition_table.html:10
-#: statistic/views/chart.py:252
-msgid "No preference"
-msgstr "Keine Präferenz"
-
-#. Translators: adjective
-#: statistic/templates/statistic/nutrition_table.html:14
-#: statistic/views/chart.py:254
-msgid "Vegetarian"
-msgstr "Vegetarisch"
-
-#: statistic/templates/statistic/nutrition_table.html:18
-#: statistic/views/chart.py:255
-msgid "Vegan"
-msgstr "Vegan"
-
-#: statistic/templates/statistic/nutrition_table.html:22
-#: statistic/views/chart.py:256
-msgid "Other"
-msgstr "Anderes"
-
-#: statistic/templates/statistic/nutrition_table.html:28
-msgid "Show"
-msgstr "Anzeigen"
 
 #: statistic/templates/statistic/nutrition_table.html:45
 #, python-format
