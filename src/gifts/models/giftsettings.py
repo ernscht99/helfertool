@@ -27,6 +27,14 @@ class GiftSettings(models.Model):
         validators=[MinValueValidator(1)],
     )
 
+    required_shirt_points = models.IntegerField(
+        verbose_name=_("Shirt Points required to get a shirt"),
+        default=6,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(1)],
+    )
+
     def __str__(self):
         return self.event.name
 

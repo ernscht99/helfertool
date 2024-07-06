@@ -19,6 +19,12 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-12 col-xl-6">
+                {% bootstrap_field settings_form.required_shirt_points layout="floating" %}
+            </div>
+        </div>
+
         {% if not event.archived %}
             <button type="submit" class="btn btn-outline-primary mb-4">{% icon "save" %} {% trans "Save" %}</button>
         {% endif %}
