@@ -10,6 +10,11 @@ class Gift(models.Model):
         verbose_name=_("Name"),
     )
 
+    is_shirt = models.BooleanField(
+        default=False,
+        verbose_name=_("Gift is a Shirt/Textile"),
+    )
+
     event = models.ForeignKey(
         "registration.Event",
         on_delete=models.CASCADE,
