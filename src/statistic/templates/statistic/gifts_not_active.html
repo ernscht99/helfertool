@@ -1,0 +1,10 @@
+{% extends "helfertool/admin.html" %}
+{% load i18n django_bootstrap5 %}
+
+{% block content %}
+    <h1>{% trans "Gifts" %}</h1>
+
+    <div class="alert alert-danger" role="alert">
+        {% trans "For this event the gift management is not activated." %}
+    </div>
+{% endblock %}

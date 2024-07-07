@@ -162,6 +162,17 @@
                     <a href="{% url 'statistic:nutrition' event.url_name %}" class="nav-link">{% trans "Nutrition" %}</a>
                 </li>
                 {% endif %}
+
+                {%if event.gifts%}
+                {% if user_gifts_edit or user_gifts_view_summary %}
+                {% if not event.archived and event.ask_nutrition and user_statistics_specific %}
+                <li class="nav-item">
+                    <a href="{% url 'statistic:gifts' event.url_name %}" class="nav-link">{% trans "Gifts Statistics" %}</a>
+                </li>
+                {% endif %}
+                {% endif %}
+                {% endif %}
+
             </ul>
         </li>
         {% endif %}
