@@ -7,6 +7,8 @@ from registration.decorators import archived_not_available
 from registration.models import Event, Helper
 from registration.permissions import has_access, has_access_event_or_job, ACCESS_STATISTICS_VIEW
 
+from gifts.models import HelpersGifts
+
 from collections import OrderedDict
 
 
@@ -27,7 +29,7 @@ class GiftData:
 @login_required
 @never_cache
 @archived_not_available
-def gift_stat(request, event_url_name):
+def gifts(request, event_url_name):
     event = get_object_or_404(Event, url_name=event_url_name)
 
     # permission
@@ -37,7 +39,7 @@ def gift_stat(request, event_url_name):
     # check if nutrition is collected for this event
     if not event.ask_nutrition:
         context = {"event": event}
-        return render(request, "statistic/nutrition_not_active.html", context)
+        return render(request, "statistic/gifts_not_active.html", context)
 
     # event wide
     event_data = None
@@ -55,4 +57,4 @@ def gift_stat(request, event_url_name):
 
     # render
     context = {"event": event, "event_data": event_data, "job_data": job_data}
-    return render(request, "statistic/nutrition.html", context)
+    return render(request, "statistic/gifts.html", context)

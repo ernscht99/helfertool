@@ -15,5 +15,6 @@ urlpatterns = [
     ),
     path("<slug:event_url_name>/shirts/", views.shirts, name="shirts"),
     path("<slug:event_url_name>/nutrition/", views.nutrition, name="nutrition"),
-    path("<slug:event_url_name>/gifts_stat/", views.gift_stat, name="gifts"),
+    path("<slug:event_url_name>/gifts_stat/", views.gifts, name="gifts"),
+    path("<slug:event_url_name>/statistics/chart/shirts/", views.chart_shirts, name="chart_shirts"),
 ]
