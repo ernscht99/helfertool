@@ -1,5 +1,5 @@
 {% load icons %}
-
+{% load i18n %}
 <div class="form-check">
     <input type="checkbox" name="{{ widget.name }}" value="{{ widget.value }}" id="{{ widget.name }}_{{ widget.value }}"
         class="form-check-input {% if shift.job.infection_instruction %}infection_instruction{% endif %} {% if not widget.attrs.disabled %}registration_possible{% endif %}"
@@ -13,6 +13,10 @@
             {% if widget.attrs.disabled %}
                 <span class="badge badge-outline-secondary float-end">
                     {{ shift.number }}/{{ shift.number }}
+                </span>
+            {% elif shift.unlimited %}
+                <span class="badge badge-outline-secondary float-end">
+                  {{ shift.num_helpers }}/{% trans "unlimited" %}
                 </span>
             {% else %}
                 <span class="badge badge-outline-secondary float-end">

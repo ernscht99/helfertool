@@ -71,7 +71,12 @@
                                     {% icon "caret-left" %} {{ shift.end }}
                                 </div>
                                 <div class="col-12 col-lg-2 col-xxl-1 py-1 text-break">
-                                    {% icon "users" %} {{ shift.number }}
+                                    {% icon "users" %}
+                                    {% if shift.unlimited %}
+                                    {% trans "unlimited" %}
+                                    {% else %}
+                                      {{ shift.number }}
+                                    {% endif %}
                                 </div>
                                 <div class="col-12 d-xxl-none">
                                     {# show hidden/blocked icon if we have multiple lines #}

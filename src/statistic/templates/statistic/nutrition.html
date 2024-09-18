@@ -9,7 +9,59 @@
         {% include "statistic/nutrition_table.html" with data=event_data %}
     {% endif %}
 
+    {% if day_data %}
+        <hr class="solid">
+        <h2>{% trans "Per day" %}</h2>
+        <div class="row">
+            <div class="col-xs-12 col-xl-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>{% trans 'Nutrition Type' %}</th>
+                            {% for date in day_data.keys %}
+                                <th>{{ date }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="w-50">{% trans 'No preference' %}</th>
+                            {% for date, data in day_data.items %}
+                                <td>{{ data.num_no_preference }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-50">{% trans 'Vegetarian' %}</th>
+                            {% for date, data in day_data.items %}
+                                <td>{{ data.num_vegetarian }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-50">{% trans 'Vegan' %}</th>
+                            {% for date, data in day_data.items %}
+                                <td>{{ data.num_vegan }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-50">{% trans 'Other' %}</th>
+                            {% for date, data in day_data.items %}
+                                <td>{{ data.num_other }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <th scope="row" class="w-50">{% trans 'Sum' %}</th>
+                            {% for date, data in day_data.items %}
+                                <td>{{ data.sum }}</td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
     {% if job_data %}
+        <hr class="solid">
         <h2>{% trans "Per job" %}</h2>
 
         <div class="alert alert-secondary">

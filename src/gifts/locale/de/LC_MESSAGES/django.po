@@ -86,6 +86,10 @@ msgstr "T-Shirt für Helfer:in kaufen"
 msgid "Deserved gifts"
 msgstr "Verdiente Geschenke"
 
+#: gifts/models/helpersgifts.py:58
+msgid "Helper got her bracelet"
+msgstr "Helfer:in hat Band erhalten"
+
 #: gifts/models/includedgift.py:26
 msgid "Count"
 msgstr "Anzahl"

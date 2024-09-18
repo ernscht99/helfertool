@@ -1,4 +1,4 @@
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
@@ -23,6 +23,8 @@ class Shift(models.Model):
         :hidden: shift is not displayed publicly
         :name: name of the shift (optional)
     """
+
+    _unlimited_value = 10000000000
 
     class Meta:
         ordering = ["job", "begin", "end"]
@@ -50,7 +52,12 @@ class Shift(models.Model):
     number = models.IntegerField(
         default=0,
         verbose_name=_("Number of helpers"),
-        validators=[MinValueValidator(0)],
+        validators=[MinValueValidator(0), MaxValueValidator(_unlimited_value)],
+    )
+
+    unlimited = models.BooleanField(
+        default=False,
+        verbose_name=_("This shift has an unlimited number of helpers"),
     )
 
     blocked = models.BooleanField(

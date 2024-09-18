@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: helfertool\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-18 16:03+0200\n"
+"POT-Creation-Date: 2024-09-18 16:37+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -103,7 +103,7 @@ msgid "Phone"
 msgstr "Handy"
 
 #: registration/export/pdf.py:136
-#: registration/templates/registration/admin/helpers_for_job.html:161
+#: registration/templates/registration/admin/helpers_for_job.html:167
 msgid "Nobody is registered for this shift."
 msgstr "Es ist niemand zu dieser Schicht angemeldet."
 
@@ -666,38 +666,42 @@ msgstr "Voraussetzungen für diese Aufgabe"
 msgid "Usage"
 msgstr "Verwendung"
 
-#: registration/models/shift.py:37
+#: registration/models/shift.py:39
 msgid "Name (optional)"
 msgstr "Name (optional)"
 
-#: registration/models/shift.py:43
+#: registration/models/shift.py:45
 #: registration/templates/registration/admin/delete_shift.html:15
 msgid "Begin"
 msgstr "Anfang"
 
-#: registration/models/shift.py:47
+#: registration/models/shift.py:49
 #: registration/templates/registration/admin/delete_shift.html:19
 msgid "End"
 msgstr "Ende"
 
-#: registration/models/shift.py:52
+#: registration/models/shift.py:54
 msgid "Number of helpers"
 msgstr "Anzahl an Helfer:innen"
 
-#: registration/models/shift.py:58
+#: registration/models/shift.py:60
+msgid "This shift has an unlimited number of helpers"
+msgstr "Diese Schicht hat unbegrenzt viele Helfer"
+
+#: registration/models/shift.py:65
 msgid "The shift is blocked and displayed as full."
 msgstr "Diese Schicht ist gesperrt und wird als voll angezeigt."
 
-#: registration/models/shift.py:63
+#: registration/models/shift.py:70
 msgid "The shift is not visible."
 msgstr "Diese Schicht ist nicht sichtbar."
 
-#: registration/models/shift.py:68
+#: registration/models/shift.py:75
 #: registration/templates/registration/admin/view_helper.html:162
 msgid "Gifts"
 msgstr "Geschenke"
 
-#: registration/models/shift.py:74
+#: registration/models/shift.py:81
 msgid "Number of registered helpers for archived event"
 msgstr "Anzahl der angemeldeten Helfer:innen für archivierte Veranstaltung"
 
@@ -720,8 +724,8 @@ msgid "More information about the Helfertool can be found here:"
 msgstr "Mehr Informationen über das Helfertool gibt es hier:"
 
 #: registration/templates/registration/admin/add_helper.html:5
-#: registration/templates/registration/admin/helpers_for_job.html:142
-#: registration/templates/registration/admin/helpers_for_job.html:147
+#: registration/templates/registration/admin/helpers_for_job.html:148
+#: registration/templates/registration/admin/helpers_for_job.html:153
 msgid "Add helper"
 msgstr "Helfer:in hinzufügen"
 
@@ -827,7 +831,7 @@ msgstr "Aufgabe"
 #: registration/templates/registration/admin/delete_link.html:20
 #: registration/templates/registration/admin/delete_shift.html:35
 #: registration/templates/registration/admin/jobs_and_shifts.html:41
-#: registration/templates/registration/admin/jobs_and_shifts.html:105
+#: registration/templates/registration/admin/jobs_and_shifts.html:110
 #: registration/templates/registration/partials/helpers_table.html:122
 #: registration/templates/registration/partials/helpers_table.html:126
 msgid "Delete"
@@ -1015,7 +1019,7 @@ msgstr "Features"
 #: registration/templates/registration/admin/edit_helper.html:38
 #: registration/templates/registration/admin/edit_job.html:56
 #: registration/templates/registration/admin/edit_link.html:20
-#: registration/templates/registration/admin/edit_shift.html:52
+#: registration/templates/registration/admin/edit_shift.html:57
 #: registration/templates/registration/admin/sort_job.html:48
 #: registration/templates/registration/admin/view_helper.html:166
 #: registration/templates/registration/partials/adminroles_form.html:32
@@ -1217,7 +1221,7 @@ msgstr "Schicht bearbeiten"
 msgid "New shift"
 msgstr "Neue Schicht"
 
-#: registration/templates/registration/admin/edit_shift.html:38
+#: registration/templates/registration/admin/edit_shift.html:43
 msgid ""
 "The following two settings are only relevant for public jobs. When a shift "
 "is hidden, it is not necessary to block it additionally. The registration "
@@ -1267,9 +1271,15 @@ msgid "Number of coordinators: %(number)s"
 msgstr "Anzahl der Koordinator:innen: %(number)s"
 
 #: registration/templates/registration/admin/helpers.html:107
-#: registration/templates/registration/admin/helpers_for_job.html:136
+#: registration/templates/registration/admin/helpers_for_job.html:142
 msgid "Show/Hide Helpers"
 msgstr "Zeige Helfer:innen"
+
+#: registration/templates/registration/admin/helpers.html:120
+#: registration/templates/registration/admin/jobs_and_shifts.html:76
+#: registration/templates/registration/templatetags/form_shifttable_option_registration.html:19
+msgid "unlimited"
+msgstr "unbegrenzt"
 
 #: registration/templates/registration/admin/helpers_for_job.html:7
 #, python-format
@@ -1285,12 +1295,18 @@ msgstr "Daten für %(jobname)s exportieren"
 msgid "Add coordinator"
 msgstr "Koordinator:in hinzufügen"
 
-#: registration/templates/registration/admin/helpers_for_job.html:125
+#: registration/templates/registration/admin/helpers_for_job.html:126
+#, fuzzy, python-format
+#| msgid "%(current)s of %(total)s"
+msgid "%(current)s of unlimited"
+msgstr "%(current)s von unbegrenzt"
+
+#: registration/templates/registration/admin/helpers_for_job.html:130
 #, python-format
 msgid "%(current)s of %(total)s"
 msgstr "%(current)s von %(total)s"
 
-#: registration/templates/registration/admin/helpers_for_job.html:154
+#: registration/templates/registration/admin/helpers_for_job.html:160
 msgid "Set presence for complete shift"
 msgstr "Anwesenheit für komplette Schicht setzen"
 
@@ -1304,7 +1320,7 @@ msgid "Sort jobs"
 msgstr "Aufgaben sortieren"
 
 #: registration/templates/registration/admin/jobs_and_shifts.html:29
-#: registration/templates/registration/admin/jobs_and_shifts.html:100
+#: registration/templates/registration/admin/jobs_and_shifts.html:105
 #: registration/templates/registration/admin/view_helper.html:41
 #: registration/templates/registration/registered.html:47
 msgid "Edit"
@@ -1319,11 +1335,11 @@ msgstr "Einen Tag der Aufgabe duplizieren"
 msgid "There are no shifts."
 msgstr "Es gibt keine Schichten."
 
-#: registration/templates/registration/admin/jobs_and_shifts.html:79
+#: registration/templates/registration/admin/jobs_and_shifts.html:84
 msgid "Not visible in public registration"
 msgstr "In öffentlicher Anmeldung nicht sichtbar"
 
-#: registration/templates/registration/admin/jobs_and_shifts.html:81
+#: registration/templates/registration/admin/jobs_and_shifts.html:86
 msgid "Displayed as full in public registration"
 msgstr "In öffentlicher Anmeldung als voll anzeigen"
 
