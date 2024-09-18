@@ -39,38 +39,70 @@ def add_table(elements, data, widths):
     elements.append(t)
 
 
-def table_of_helpers(elements, helpers, event):
+def table_of_helpers(elements, helpers, event, included_columns):
+    # determine which of the requested columns are included
+    included_columns["phone"] = event.ask_phone and included_columns["phone"]
+    included_columns["shirt"] = event.ask_shirt and included_columns["shirt"]
+    included_columns["nutrition"] = event.ask_nutrition and included_columns["nutrition"]
+
     # table
-    header = [
-        par(_("Name")),
-    ]
-    spaces = [
-        6,
-    ]
-    if event.ask_shirt:
-        header.append(par(_("T-shirt")))
-        spaces.append(2.5)
-    header.append(par(_("Comment")))
-    spaces.append(17 - sum(spaces))  # 17cm are the total possible width, adjust the comment column to fill that
+    available_space = 17  # 17cm are the total possible width
+    spaces = []
+    header = []
+
+    def add_column(heading, space, available_space):
+        if available_space - space < 0:
+            return
+        header.append(par(heading))
+        spaces.append(space)
+        return available_space - space
+
+    if included_columns["name"]:
+        available_space = add_column(_("Name"), 5, available_space)
+    if included_columns["email"]:
+        available_space = add_column(_("E-Mail"), 5, available_space)
+    if included_columns["phone"]:
+        available_space = add_column(_("Phone"), 3, available_space)
+    if included_columns["shirt"]:
+        available_space = add_column(_("T-shirt"), 1.5, available_space)
+    if included_columns["nutrition"]:
+        available_space = add_column(_("Nutrition"), 2.5, available_space)
+    if included_columns["foodhandling"]:
+        available_space = add_column(_("Food handling"), 4, available_space)
+    if included_columns["comment"]:
+        available_space = add_column(_("Comment"), available_space, available_space)
+
+    # guard against not selecting any columns
+    if not header:
+        add_column("", 4, available_space)
 
     data = [
         header,
     ]
 
     for helper in helpers:
-        tmp = [
-            par("%s %s" % (helper.firstname, helper.surname)),
-        ]
-        if event.ask_shirt:
+        tmp = []
+        if included_columns["name"]:
+            tmp.append(par("%s %s" % (helper.firstname, helper.surname)))
+        if included_columns["email"]:
+            tmp.append(par(helper.email))
+        if included_columns["phone"]:
+            tmp.append(par(helper.phone))
+        if included_columns["shirt"]:
             tmp.append(par(helper.get_shirt_display()))
-        tmp.append(par(helper.comment))
+        if included_columns["nutrition"]:
+            tmp.append(par(helper.get_nutrition_short()))
+        if included_columns["foodhandling"]:
+            tmp.append(par(helper.get_infection_instruction_short()))
+        if included_columns["comment"]:
+            tmp.append(par(helper.comment))
         data.append(tmp)
 
     spaces = [s * cm for s in spaces]
     add_table(elements, data, spaces)
 
 
-def pdf(buffer, event, jobs, date):
+def pdf(buffer, event, jobs, date, included_columns):
     doc = SimpleDocTemplate(buffer, topMargin=margin, rightMargin=margin, bottomMargin=margin, leftMargin=margin)
     doc.pagesize = A4
 
@@ -88,18 +120,18 @@ def pdf(buffer, event, jobs, date):
             heading = h2(_("Coordinators"))
             elements.append(heading)
 
-            table_of_helpers(elements, job.coordinators.all(), event)
+            table_of_helpers(elements, job.coordinators.all(), event, included_columns)
 
         # iterate over shifts
         for shift in job.shift_set.all():
             if date and shift.date() != date:
                 continue
 
-            heading = h2(shift.time_with_day())
+            heading = h2(f"{shift.time_with_day()}: {shift.name}")
             elements.append(heading)
 
             if shift.helper_set.count() > 0:
-                table_of_helpers(elements, shift.helper_set.all(), event)
+                table_of_helpers(elements, shift.helper_set.all(), event, included_columns)
             else:
                 p = par(_("Nobody is registered for this shift."))
                 elements.append(p)
