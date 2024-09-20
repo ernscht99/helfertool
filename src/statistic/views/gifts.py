@@ -12,21 +12,6 @@ from gifts.models import HelpersGifts, DeservedGiftSet, IncludedGift
 from collections import OrderedDict
 
 
-class GiftData:
-    """Prepare numbers about chosen nutrition for template."""
-
-    def __init__(self, helper_set):
-        # shift__job
-        # numbers
-        self.num_no_preference = helper_set.filter(nutrition=Helper.NUTRITION_NO_PREFERENCE).count()
-        self.num_vegetarian = helper_set.filter(nutrition=Helper.NUTRITION_VEGETARIAN).count()
-        self.num_vegan = helper_set.filter(nutrition=Helper.NUTRITION_VEGAN).count()
-        self.num_other = helper_set.filter(nutrition=Helper.NUTRITION_OTHER).count()
-
-        # helpers with "other" (we want to show the comments)
-        self.helpers_other = helper_set.filter(nutrition=Helper.NUTRITION_OTHER)
-
-
 @login_required
 @never_cache
 @archived_not_available
@@ -42,11 +27,6 @@ def gifts(request, event_url_name):
         context = {"event": event}
         return render(request, "statistic/gifts_not_active.html", context)
 
-    # event wide
-    event_data = None
-    if has_access(request.user, event, ACCESS_STATISTICS_VIEW):
-        event_data = GiftData(event.helper_set)
-
     # Update Gifts
 
     # Generate General Gift stats
@@ -57,5 +37,5 @@ def gifts(request, event_url_name):
     )
 
     # render
-    context = {"event": event, "event_data": event_data, "gift_data": gift_data}
+    context = {"event": event, "gift_data": gift_data}
     return render(request, "statistic/gifts.html", context)
