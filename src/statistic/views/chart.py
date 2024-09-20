@@ -275,7 +275,6 @@ def chart_shirts(request, event_url_name):
         JsonResponse({})
 
     # get data
-
     result = (
         DeservedGiftSet.objects.filter(shift__job__event=event)
         .filter(gift_set__includedgift__gift__is_shirt=True)  # Filter to include only shirt gifts
@@ -294,11 +293,10 @@ def chart_shirts(request, event_url_name):
     # the gifts are only added if the helper is opend once
 
     # ALSO for some reason the number is allways double of what it is supposed to be
+    # It might be related to ether my database or if you put the same user in multible shifts
 
     labels = [item["helper__helper__shirt"] for item in result]
     data1 = [item["num_shirts"] / 2 for item in result]  # stange bug
-
-    print(labels)
 
     # output format
     data = {
