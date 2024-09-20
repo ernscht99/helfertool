@@ -7,9 +7,7 @@ from registration.decorators import archived_not_available
 from registration.models import Event, Helper
 from registration.permissions import has_access, has_access_event_or_job, ACCESS_STATISTICS_VIEW
 
-from gifts.models import HelpersGifts, DeservedGiftSet, IncludedGift
-
-from collections import OrderedDict
+from gifts.models import IncludedGift
 
 
 @login_required
@@ -27,7 +25,11 @@ def gifts(request, event_url_name):
         context = {"event": event}
         return render(request, "statistic/gifts_not_active.html", context)
 
-    # Update Gifts
+    # Update Gifts in database
+    helper_list = Helper.objects.filter(shifts__job__event=event)
+
+    for helper in helper_list:
+        helper.gifts.update()
 
     # Generate General Gift stats
     gift_data = (
