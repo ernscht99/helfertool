@@ -1,13 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.cache import never_cache
-
+from django.db.models import Sum, Count, Q
 from helfertool.utils import nopermission
 from registration.decorators import archived_not_available
 from registration.models import Event, Helper
 from registration.permissions import has_access, has_access_event_or_job, ACCESS_STATISTICS_VIEW
 
-from gifts.models import HelpersGifts
+from gifts.models import HelpersGifts, DeservedGiftSet, IncludedGift
 
 from collections import OrderedDict
 
@@ -16,6 +16,7 @@ class GiftData:
     """Prepare numbers about chosen nutrition for template."""
 
     def __init__(self, helper_set):
+        # shift__job
         # numbers
         self.num_no_preference = helper_set.filter(nutrition=Helper.NUTRITION_NO_PREFERENCE).count()
         self.num_vegetarian = helper_set.filter(nutrition=Helper.NUTRITION_VEGETARIAN).count()
@@ -46,15 +47,14 @@ def gifts(request, event_url_name):
     if has_access(request.user, event, ACCESS_STATISTICS_VIEW):
         event_data = GiftData(event.helper_set)
 
-    # for each job
-    job_data = OrderedDict()
-    for job in event.job_set.all():
-        # check permission for job
-        if not has_access(request.user, job, ACCESS_STATISTICS_VIEW):
-            continue
-
-        job_data[job] = GiftData(job.helpers_and_coordinators())
+    # Update shit
+    gift_data = (
+        IncludedGift.objects.values("gift__name")  # Group by gift name
+        .annotate(total=Sum("count"))  # Total gifts given (delivered + not delivered)
+        .annotate(delivered=Sum("count", filter=Q(gift_set__deservedgiftset__delivered=True)))  # Only delivered gifts
+    )
+    print(gift_data.all())
 
     # render
-    context = {"event": event, "event_data": event_data, "job_data": job_data}
+    context = {"event": event, "event_data": event_data, "gift_data": gift_data}
     return render(request, "statistic/gifts.html", context)

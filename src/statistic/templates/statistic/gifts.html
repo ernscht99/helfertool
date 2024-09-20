@@ -7,19 +7,22 @@
     <div class="row">
         <div class="col-xs-12 col-xl-6">
             <table class="table" aria-label="{% trans "Gifsts hannded out" %}">
-                <tr>
-                    <th scope="col" class="w-25">{% trans "Name" %}</th>
-                    <th scope="col" class="w-25">{% trans "Promised" %}</th>
-                    <th scope="col" class="w-25">{% trans "Handed out" %}</th>
-                </tr>
-
-                {% for size,num in data.total.items %}
+                <thead>
                     <tr>
-                        <td>{{ size }}</td>
-                        <td>{{ num }}</td>
-                        <td>test</td>
+                        <th scope="col" class="w-25">{% trans "Name" %}</th>
+                        <th scope="col" class="w-25">{% trans "Promised" %}</th>
+                        <th scope="col" class="w-25">{% trans "Handed out" %}</th>
                     </tr>
-                {% endfor %}
+                </thead>
+                <tbody>
+                    {% for gift in gift_data %}
+                    <tr>
+                        <td>{{ gift.gift__name }}</td>
+                        <td>{{ gift.total }}</td>
+                        <td>{{ gift.delivered }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>
