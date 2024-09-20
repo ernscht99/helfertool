@@ -47,13 +47,14 @@ def gifts(request, event_url_name):
     if has_access(request.user, event, ACCESS_STATISTICS_VIEW):
         event_data = GiftData(event.helper_set)
 
-    # Update shit
+    # Update Gifts
+
+    # Generate General Gift stats
     gift_data = (
         IncludedGift.objects.values("gift__name")  # Group by gift name
         .annotate(total=Sum("count"))  # Total gifts given (delivered + not delivered)
         .annotate(delivered=Sum("count", filter=Q(gift_set__deservedgiftset__delivered=True)))  # Only delivered gifts
     )
-    print(gift_data.all())
 
     # render
     context = {"event": event, "event_data": event_data, "gift_data": gift_data}
