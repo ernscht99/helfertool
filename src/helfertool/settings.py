@@ -552,6 +552,7 @@ INSTALLED_APPS = (
     "django_icons",
     "django_select2",
     "django_countries",
+    "djangoviz",
     "ckeditor",
     "compressor",
     "django_celery_results",
