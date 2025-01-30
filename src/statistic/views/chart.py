@@ -296,7 +296,7 @@ def chart_shirts(request, event_url_name):
     # It might be related to ether my database or if you put the same user in multible shifts
 
     labels = [item["helper__helper__shirt"] for item in result]
-    data1 = [item["num_shirts"] / 2 for item in result]  # stange bug
+    data1 = [item["num_shirts"] for item in result]  # strange bug
 
     # output format
     data = {
