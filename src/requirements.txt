@@ -15,6 +15,7 @@ django-icons~=23.1
 django-libsass~=0.9
 django-modeltranslation~=0.18
 django-multiselectfield~=0.1
+djangoviz~=0.1.1
 celery~=5.3.4
 django-celery-results~=2.5.1
 csscompressor~=0.9
