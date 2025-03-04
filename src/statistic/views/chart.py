@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Count
+from django.db import connection
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
@@ -10,7 +11,7 @@ from registration.decorators import archived_not_available
 from registration.models import Event, Shift, HelperShift, Helper
 from registration.permissions import has_access, ACCESS_STATISTICS_VIEW
 
-from gifts.models import DeservedGiftSet
+from gifts.models import DeservedGiftSet, GiftSettings
 
 from datetime import timedelta
 from itertools import cycle
@@ -274,53 +275,48 @@ def chart_shirts(request, event_url_name):
     if not event.gifts:
         JsonResponse({})
 
-    # get data
-    result = (
-        DeservedGiftSet.objects.filter(shift__job__event=event)
-        .filter(gift_set__includedgift__gift__is_shirt=True)  # Filter to include only shirt gifts
-        .values("helper", "helper__helper__shirt")  # Group by helper and their shirt size
-        .annotate(total_points=Sum("gift_set__includedgift__count"))  # Annotate total points for each helper
-        .filter(total_points__gte=6)
-    )
-    # print(result.all())
-    result = result.values("helper__helper__shirt").annotate(num_shirts=Count("helper__helper__shirt"))
+    required_points = GiftSettings.objects.filter(event_id=event.id).first().required_shirt_points
 
-    # Printing the results in a readable format
-    # for entry in result:
-    #     print(f"Size: {entry['helper__helper__shirt']}, Number of Shirts: {entry['num_shirts']}")
+    query = """
+        select name, count(*) from
+        (select name, helper_id, sum(count) as shirt_points from
+        gifts_gift join gifts_includedgift on gifts_gift.id = gifts_includedgift.gift_id
+        join registration_shift_gifts on registration_shift_gifts.giftset_id = gift_set_id
+        join registration_helpershift on registration_helpershift.shift_id = registration_shift_gifts.shift_id
+        where is_shirt and event_id = %s group by name, helper_id, count )
+        where shirt_points >= %s group by name
+    """
 
-    # We have a bug here that if a new helper is added maunally and the helper was never loaded we can not see him in the stats apprently
-    # the gifts are only added if the helper is opend once
+    with connection.cursor() as cursor:
+        cursor.execute(query, [event.id, required_points])
+        result = cursor.fetchall()
 
-    # ALSO for some reason the number is allways double of what it is supposed to be
-    # It might be related to ether my database or if you put the same user in multible shifts
+        labels = [k for k, _ in result]
+        data1 = [v for _, v in result]  # strange bug
 
-    labels = [item["helper__helper__shirt"] for item in result]
-    data1 = [item["num_shirts"] for item in result]  # strange bug
+        # output format
+        data = {
+            "labels": labels,
+            "datasets": [
+                {
+                    "label": _("Promised"),
+                    "data": data1,
+                    "borderColor": colors_primary[0],
+                    "backgroundColor": colors_primary[0],
+                },
+            ],
+        }
 
-    # output format
-    data = {
-        "labels": labels,
-        "datasets": [
-            {
-                "label": _("Promised"),
-                "data": data1,
-                "borderColor": colors_primary[0],
-                "backgroundColor": colors_primary[0],
+        config = {
+            "type": "bar",
+            "data": data,
+            "options": {
+                "responsive": True,
+                # "plugins": {
+                # "legend": {
+                #     "position": 'top',
+                # },
+                # }
             },
-        ],
-    }
-
-    config = {
-        "type": "bar",
-        "data": data,
-        "options": {
-            "responsive": True,
-            # "plugins": {
-            # "legend": {
-            #     "position": 'top',
-            # },
-            # }
-        },
-    }
-    return JsonResponse(config)
+        }
+        return JsonResponse(config)
