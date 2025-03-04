@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum
+from django.db.models import Sum, Count
+from django.db import connection
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
@@ -9,6 +10,8 @@ from badges.models import SpecialBadges
 from registration.decorators import archived_not_available
 from registration.models import Event, Shift, HelperShift, Helper
 from registration.permissions import has_access, ACCESS_STATISTICS_VIEW
+
+from gifts.models import DeservedGiftSet, GiftSettings
 
 from datetime import timedelta
 from itertools import cycle
@@ -257,3 +260,63 @@ def chart_nutrition(request, event_url_name):
     ]
 
     return _chart_doughnut(data)
+
+
+@login_required
+@never_cache
+@archived_not_available
+def chart_shirts(request, event_url_name):
+    event = get_object_or_404(Event, url_name=event_url_name)
+
+    # permission
+    if not has_access(request.user, event, ACCESS_STATISTICS_VIEW):
+        return JsonResponse({})
+
+    if not event.gifts:
+        JsonResponse({})
+
+    required_points = GiftSettings.objects.filter(event_id=event.id).first().required_shirt_points
+
+    query = """
+        select name, count(*) from
+        (select name, helper_id, sum(count) as shirt_points from
+        gifts_gift join gifts_includedgift on gifts_gift.id = gifts_includedgift.gift_id
+        join registration_shift_gifts on registration_shift_gifts.giftset_id = gift_set_id
+        join registration_helpershift on registration_helpershift.shift_id = registration_shift_gifts.shift_id
+        where is_shirt and event_id = %s group by name, helper_id, count )
+        where shirt_points >= %s group by name
+    """
+
+    with connection.cursor() as cursor:
+        cursor.execute(query, [event.id, required_points])
+        result = cursor.fetchall()
+
+        labels = [k for k, _ in result]
+        data1 = [v for _, v in result]  # strange bug
+
+        # output format
+        data = {
+            "labels": labels,
+            "datasets": [
+                {
+                    "label": _("Promised"),
+                    "data": data1,
+                    "borderColor": colors_primary[0],
+                    "backgroundColor": colors_primary[0],
+                },
+            ],
+        }
+
+        config = {
+            "type": "bar",
+            "data": data,
+            "options": {
+                "responsive": True,
+                # "plugins": {
+                # "legend": {
+                #     "position": 'top',
+                # },
+                # }
+            },
+        }
+        return JsonResponse(config)

@@ -1,0 +1,42 @@
+{% extends "helfertool/admin.html" %}
+{% load i18n django_bootstrap5 icons static%}
+
+{% block content %}
+    <h1>{% trans "Gifts" %}</h1>
+    <h2>{% trans "General Gifts" %}</h2>
+    <p>
+        This table displays the total number of each gift type and how many of those have been delivered and are promised. In case of textiles or shirts the amount of points are displayed. It is not accounted for any logic behind the shirt giving out process.
+    </p>
+    <div class="row">
+        <div class="col-xs-12 col-xl-6">
+            <table class="table" aria-label="{% trans "Gifsts hannded out" %}">
+                <thead>
+                    <tr>
+                        <th scope="col" class="w-25">{% trans "Name" %}</th>
+                        <th scope="col" class="w-25">{% trans "Promised" %}</th>
+                        <th scope="col" class="w-25">{% trans "Handed out" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for gift in gift_data %}
+                    <tr>
+                        <td>{{ gift.gift__name }}</td>
+                        <td>{{ gift.total }}</td>
+                        <td>{{ gift.delivered }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h2>{% trans "Shirts" %}</h2>
+
+    <div class="col-lg-8 col-xxl-10 statistics">
+        <canvas class="chart" data-url="{% url 'statistic:chart_shirts' event.url_name %}" data-empty="shirts_empty"></canvas>
+        <div id="shirts_empty" class="placeholdertext d-none">{% trans "There are no shirts tracked." %}</div>
+    </div>
+
+    <script src="{% static "statistic/js/chart.js" %}"></script>
+
+{% endblock %}
