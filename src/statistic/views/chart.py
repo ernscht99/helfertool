@@ -278,21 +278,23 @@ def chart_shirts(request, event_url_name):
     required_points = GiftSettings.objects.filter(event_id=event.id).first().required_shirt_points
 
     query = """
-        select name, count(*) from
-        (select name, helper_id, sum(count) as shirt_points from
+        select name,shirt_size, count(*) from
+        (select name, helper_id, shirt as shirt_size, sum(count) as shirt_points from
         gifts_gift join gifts_includedgift on gifts_gift.id = gifts_includedgift.gift_id
         join registration_shift_gifts on registration_shift_gifts.giftset_id = gift_set_id
         join registration_helpershift on registration_helpershift.shift_id = registration_shift_gifts.shift_id
-        where is_shirt and event_id = %s group by name, helper_id, count )
-        where shirt_points >= %s group by name
-    """
+        join registration_helper on registration_helper.id = registration_helpershift.helper_id
+        where is_shirt and gifts_gift.event_id = %s group by name, helper_id, count )
+        where shirt_points >= %s group by name, shirt_size
+        """
+
 
     with connection.cursor() as cursor:
         cursor.execute(query, [event.id, required_points])
         result = cursor.fetchall()
 
-        labels = [k for k, _ in result]
-        data1 = [v for _, v in result]  # strange bug
+        labels = [f"{name}, {size}" for name, size, _ in result]
+        data1 = [v for _, _, v in result]
 
         # output format
         data = {
