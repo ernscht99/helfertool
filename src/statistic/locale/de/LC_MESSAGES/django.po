@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-29 13:01+0200\n"
+"POT-Creation-Date: 2025-03-28 11:52+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,6 +17,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
+
+#: statistic/templates/statistic/gifts.html:5
+#: statistic/templates/statistic/gifts_not_active.html:5
+#, fuzzy
+#| msgid "Shifts"
+msgid "Gifts"
+msgstr "Schichten"
+
+#: statistic/templates/statistic/gifts.html:6
+msgid "General"
+msgstr "Allgemein"
+
+#: statistic/templates/statistic/gifts.html:8
+msgid ""
+"This table displays the total number of each gift type and how many of those "
+"have been delivered and are promised. In case of textiles or shirts the "
+"amount of points are displayed. It is not accounted for any logic behind the "
+"shirt giving out process."
+msgstr "Gesamt Anzahl von verspochenen und ausgegebnen Geschenken. Im Fall eines Shirt werden die Shirtpunkte angeben"
+
+#: statistic/templates/statistic/gifts.html:12
+msgid "Gifts hannded out"
+msgstr "Ausgegebene Geschenke"
+
+#: statistic/templates/statistic/gifts.html:15
+msgid "Name"
+msgstr "Name"
+
+#: statistic/templates/statistic/gifts.html:16 statistic/views/chart.py:302
+msgid "Promised"
+msgstr "Versprochen"
+
+#: statistic/templates/statistic/gifts.html:17
+msgid "Handed out"
+msgstr "Ausgegeben"
+
+#: statistic/templates/statistic/gifts.html:33
+#, fuzzy
+#| msgid "T-Shirts"
+msgid "Shirts"
+msgstr "T-Shirts"
+
+#: statistic/templates/statistic/gifts.html:36
+msgid "The plot shows the number of shirts that have been earned"
+msgstr "Die Grafik zeigt die Anzahl der verspochenen Tshirts"
+
+#: statistic/templates/statistic/gifts.html:41
+#, fuzzy
+#| msgid "There are no shifts."
+msgid "There are no shirts tracked."
+msgstr "Es gibt keine Tshirts."
+
+#: statistic/templates/statistic/gifts_not_active.html:8
+msgid "For this event the gift management is not activated."
+msgstr "Die Geschenke Verwaltung ist für dieses Event deactiviert"
 
 #: statistic/templates/statistic/nutrition.html:5
 #: statistic/templates/statistic/nutrition_not_active.html:5
@@ -41,26 +96,26 @@ msgstr "Ernährung"
 
 #: statistic/templates/statistic/nutrition.html:28
 #: statistic/templates/statistic/nutrition_table.html:10
-#: statistic/views/chart.py:252
+#: statistic/views/chart.py:255
 msgid "No preference"
 msgstr "Keine Präferenz"
 
 #. Translators: adjective
 #: statistic/templates/statistic/nutrition.html:34
 #: statistic/templates/statistic/nutrition_table.html:14
-#: statistic/views/chart.py:254
+#: statistic/views/chart.py:257
 msgid "Vegetarian"
 msgstr "Vegetarisch"
 
 #: statistic/templates/statistic/nutrition.html:40
 #: statistic/templates/statistic/nutrition_table.html:18
-#: statistic/views/chart.py:255
+#: statistic/views/chart.py:258
 msgid "Vegan"
 msgstr "Vegan"
 
 #: statistic/templates/statistic/nutrition.html:46
 #: statistic/templates/statistic/nutrition_table.html:22
-#: statistic/views/chart.py:256
+#: statistic/views/chart.py:259
 msgid "Other"
 msgstr "Anderes"
 
@@ -185,7 +240,7 @@ msgstr "Das T-Shirt einer Helfer:in wird zur ersten Schicht gezählt."
 msgid "T-shirt sizes for job"
 msgstr "T-Shirt Größen für Aufgabe"
 
-#: statistic/templates/statistic/shirts.html:58 statistic/views/chart.py:188
+#: statistic/templates/statistic/shirts.html:58 statistic/views/chart.py:191
 msgid "Helpers"
 msgstr "Helfer:innen"
 
@@ -202,23 +257,23 @@ msgstr "T-Shirt Größen für %(name)s"
 msgid "For this event no t-shirt sizes were collected."
 msgstr "Für diese Veranstaltung wurden keine T-Shirt Größen gesammelt."
 
-#: statistic/views/chart.py:131
+#: statistic/views/chart.py:134
 msgid "Number of helpers"
 msgstr "Anzahl Helfer:innen"
 
-#: statistic/views/chart.py:189
+#: statistic/views/chart.py:192
 msgid "Coordinators"
 msgstr "Koordinator:innen"
 
-#: statistic/views/chart.py:192
+#: statistic/views/chart.py:195
 msgid "Special badges"
 msgstr "Spezial Badges"
 
-#: statistic/views/chart.py:220
+#: statistic/views/chart.py:223
 msgid "Filled slots"
 msgstr "Volle Slots"
 
-#: statistic/views/chart.py:221
+#: statistic/views/chart.py:224
 msgid "Vacant slots"
 msgstr "Leere Slots"
 

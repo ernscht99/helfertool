@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-25 19:30+0200\n"
+"POT-Creation-Date: 2025-03-28 11:37+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -49,6 +49,10 @@ msgstr "Helfer:in hat Geschenk erhalten"
 msgid "Name"
 msgstr "Name"
 
+#: gifts/models/gift.py:15
+msgid "Gift is a Shirt/Textile"
+msgstr "Ist Tshirt"
+
 #: gifts/models/giftsettings.py:16
 msgid "Enable automatic presence for helpers"
 msgstr "Helfer:innen automatisch auf anwesend setzen"
@@ -64,6 +68,10 @@ msgstr ""
 #: gifts/models/giftsettings.py:23
 msgid "Default deposit for a helper"
 msgstr "Standard Pfand für Helfer:innen"
+
+#: gifts/models/giftsettings.py:31
+msgid "Shirt Points required to get a shirt"
+msgstr "Benötigte Shirt Punkte"
 
 #: gifts/models/helpersgifts.py:27 gifts/templates/gifts/helper.html:146
 #: gifts/templates/gifts/list_deposit.html:14
@@ -94,7 +102,7 @@ msgstr "Helfer:in hat Band erhalten"
 msgid "Count"
 msgstr "Anzahl"
 
-#: gifts/models/set.py:19 gifts/templates/gifts/list.html:27
+#: gifts/models/set.py:19 gifts/templates/gifts/list.html:33
 msgid "Gifts"
 msgstr "Geschenke"
 
@@ -112,7 +120,7 @@ msgstr "Geschenksets, die dieses Geschenk verwenden"
 
 #: gifts/templates/gifts/delete_gift.html:31
 #: gifts/templates/gifts/delete_gift_set.html:31
-#: gifts/templates/gifts/list.html:40 gifts/templates/gifts/list.html:80
+#: gifts/templates/gifts/list.html:49 gifts/templates/gifts/list.html:89
 msgid "Delete"
 msgstr "Löschen"
 
@@ -134,7 +142,7 @@ msgstr "Geschenk"
 
 #: gifts/templates/gifts/edit_gift.html:12
 #: gifts/templates/gifts/edit_gift_set.html:12
-#: gifts/templates/gifts/list.html:23 gifts/templates/gifts/set_present.html:47
+#: gifts/templates/gifts/list.html:29 gifts/templates/gifts/set_present.html:47
 msgid "Save"
 msgstr "Speichern"
 
@@ -195,27 +203,27 @@ msgstr "Einstellungen für Geschenke und Anwesenheiten"
 msgid "General"
 msgstr "Allgemein"
 
-#: gifts/templates/gifts/list.html:39 gifts/templates/gifts/list.html:79
+#: gifts/templates/gifts/list.html:48 gifts/templates/gifts/list.html:88
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: gifts/templates/gifts/list.html:49
+#: gifts/templates/gifts/list.html:58
 msgid "There are no gifts."
 msgstr "Es gibt keine Geschenke."
 
-#: gifts/templates/gifts/list.html:53
+#: gifts/templates/gifts/list.html:62
 msgid "Add gift"
 msgstr "Geschenk hinzufügen"
 
-#: gifts/templates/gifts/list.html:56
+#: gifts/templates/gifts/list.html:65
 msgid "Gift sets"
 msgstr "Geschenksets"
 
-#: gifts/templates/gifts/list.html:89
+#: gifts/templates/gifts/list.html:98
 msgid "There are no gift sets."
 msgstr "Es gibt keine Geschenksets."
 
-#: gifts/templates/gifts/list.html:93
+#: gifts/templates/gifts/list.html:102
 msgid "Add gift set"
 msgstr "Geschenkset hinzufügen"
 
