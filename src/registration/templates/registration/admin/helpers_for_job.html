@@ -139,7 +139,9 @@
 
             <p class="mt-3">
 
-                <a href="#col-{{shift.id}}" class="btn text-nowrap" data-bs-toggle="collapse">{% icon "caret-right" %} {% trans "Show/Hide Helpers"%}</a>
+                <a href="#col-{{shift.id}}" class="me-3 my-2 text-nowrap" data-bs-toggle="collapse">
+                    {% icon "caret-right" %} {% trans "Show/Hide Helpers"%}
+                </a>
 
                 {% if user_job_edit_helpers %}
                     {% if shift.is_full %}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 11:37+0100\n"
+"POT-Creation-Date: 2025-03-28 12:04+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -171,7 +171,7 @@ msgstr "Ernährung"
 #: helfertool/templates/helfertool/admin_event_menu.html:170
 #, fuzzy
 #| msgid "Statistics"
-msgid "Gifts Statistics"
+msgid "Gift Statistics"
 msgstr "Statistik"
 
 #: helfertool/templates/helfertool/admin_event_menu.html:183
