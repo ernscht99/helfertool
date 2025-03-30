@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 11:52+0100\n"
+"POT-Creation-Date: 2025-03-30 15:15+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -35,7 +35,9 @@ msgid ""
 "have been delivered and are promised. In case of textiles or shirts the "
 "amount of points are displayed. It is not accounted for any logic behind the "
 "shirt giving out process."
-msgstr "Gesamt Anzahl von verspochenen und ausgegebnen Geschenken. Im Fall eines Shirt werden die Shirtpunkte angeben"
+msgstr ""
+"Gesamt Anzahl von verspochenen und ausgegebnen Geschenken. Im Fall eines "
+"Shirt werden die Shirtpunkte angeben"
 
 #: statistic/templates/statistic/gifts.html:12
 msgid "Gifts hannded out"
@@ -45,7 +47,7 @@ msgstr "Ausgegebene Geschenke"
 msgid "Name"
 msgstr "Name"
 
-#: statistic/templates/statistic/gifts.html:16 statistic/views/chart.py:302
+#: statistic/templates/statistic/gifts.html:16
 msgid "Promised"
 msgstr "Versprochen"
 

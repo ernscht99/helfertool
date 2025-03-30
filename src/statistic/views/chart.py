@@ -288,25 +288,39 @@ def chart_shirts(request, event_url_name):
         where shirt_points >= %s group by name, shirt_size
         """
 
-
     with connection.cursor() as cursor:
         cursor.execute(query, [event.id, required_points])
         result = cursor.fetchall()
 
-        labels = [f"{name}, {size}" for name, size, _ in result]
-        data1 = [v for _, _, v in result]
+        # Read a single kind of tshirt as a dataset
+        dataset_names = set(row[0] for row in result)
+        labels = set(row[1] for row in result)
+
+        # Check which values are available for shirt sizes and only use the one we have data for
+        shirt_choices = [row[0] for row in event.get_shirt_choices() if row[0] in labels]
+
+        # Build empty dict
+        counts = {dataset: {label: 0 for label in shirt_choices} for dataset in dataset_names}
+
+        for dataset, label, count in result:
+            counts[dataset][label] = count
+
+        datasets = []
+
+        for i, dataset_name in enumerate(dataset_names):
+            datasets.append(
+                {
+                    "label": dataset_name,
+                    "data": list(counts[dataset_name].values()),
+                    "borderColor": colors_primary[i],
+                    "backgroundColor": colors_primary[i],
+                }
+            )
 
         # output format
         data = {
-            "labels": labels,
-            "datasets": [
-                {
-                    "label": _("Promised"),
-                    "data": data1,
-                    "borderColor": colors_primary[0],
-                    "backgroundColor": colors_primary[0],
-                },
-            ],
+            "labels": list(shirt_choices),
+            "datasets": datasets,
         }
 
         config = {
@@ -314,11 +328,6 @@ def chart_shirts(request, event_url_name):
             "data": data,
             "options": {
                 "responsive": True,
-                # "plugins": {
-                # "legend": {
-                #     "position": 'top',
-                # },
-                # }
             },
         }
         return JsonResponse(config)
