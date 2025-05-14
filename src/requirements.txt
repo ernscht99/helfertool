@@ -27,3 +27,4 @@ python-magic~=0.4
 pyyaml~=6.0
 reportlab~=4.0.4
 xlsxwriter~=3.0
+qrcode==8.2
