@@ -176,7 +176,8 @@ def view_helper(request, event_url_name, helper_pk):
     stustapay_qr = dict(
         firstName=helper.firstname,
         lastName=helper.surname,
-        description=", ".join([i.job.name for i in helper.shifts.all()]),
+        description=f"helper tool id: {helper.id}; shifts: "
+        + ", ".join(set([i.job.name for i in helper.shifts.all()])),
     )
     img = qrcode.make(json.dumps(stustapay_qr))
     buffer = io.BytesIO()
