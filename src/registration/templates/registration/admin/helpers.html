@@ -29,7 +29,9 @@
                                         <a href="#" onclick="get_export('{% url 'export' event.url_name 'excel' %}')">
                                             <img src="{% static "helfertool/img/icons/xls.svg" %}" class="icon" alt="Excel" />
                                         </a>
-
+                                        <a href="#" onclick="get_export('{% url 'export' event.url_name 'csv' %}')">
+                                            <img src="{% static "helfertool/img/icons/xls.svg" %}" class="icon" alt="Excel" />
+                                        </a>
                                         <a href="#" onclick="get_export('{% url 'export' event.url_name 'pdf' %}')">
                                             <img src="{% static "helfertool/img/icons/pdf.svg" %}" class="icon" alt="PDF" />
                                         </a>
@@ -42,6 +44,9 @@
 
                                         <div class="float-end">
                                             <a href="#" onclick="get_export('{% url 'export_date' event.url_name 'excel' day %}')" class="mr-2")>
+                                                <img src="{% static "helfertool/img/icons/xls.svg" %}" class="icon" alt="Excel" />
+                                            </a>
+                                            <a href="#" onclick="get_export('{% url 'export_date' event.url_name 'csv' day %}')">
                                                 <img src="{% static "helfertool/img/icons/xls.svg" %}" class="icon" alt="Excel" />
                                             </a>
                                             <a href="#" onclick="get_export('{% url 'export_date' event.url_name 'pdf' day %}')")">
