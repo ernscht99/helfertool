@@ -38,6 +38,9 @@
                                     <a href="#" onclick="get_export('{% url 'export_job' event.url_name 'excel' job.pk %}')" class="icon mr-2">
                                         <img src="{% static "helfertool/img/icons/xls.svg" %}" class="icon" alt="Excel" />
                                     </a>
+                                    <a href="#" onclick="get_export('{% url 'export_job' event.url_name 'csv' job.pk %}')" class="icon mr-2">
+                                        <img src="{% static "helfertool/img/icons/xls.svg" %}" class="icon" alt="Excel" />
+                                    </a>
                                     <a href="#" onclick="get_export('{% url 'export_job' event.url_name 'pdf' job.pk %}')" class="icon mr-2">
                                         <img src="{% static "helfertool/img/icons/pdf.svg" %}" class="icon" alt="PDF" />
                                     </a>
@@ -50,6 +53,9 @@
 
                                     <div class="float-end">
                                         <a href="#" onclick="get_export('{% url 'export_job_date' event.url_name 'excel' job.pk day %}')" class="icon mr-2">
+                                            <img src="{% static "helfertool/img/icons/xls.svg" %}" class="icon" alt="Excel" />
+                                        </a>
+                                        <a href="#" onclick="get_export('{% url 'export_job_date' event.url_name 'csv' job.pk day %}')" class="icon mr-2">
                                             <img src="{% static "helfertool/img/icons/xls.svg" %}" class="icon" alt="Excel" />
                                         </a>
                                         <a href="#" onclick="get_export('{% url 'export_job_date' event.url_name 'pdf' job.pk day %}')">
